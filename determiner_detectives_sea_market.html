@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Determiner Detectives | The Sea Mini-Market</title>
+<style>
+:root{
+  --navy:#073b5c;--deep:#062c49;--teal:#087f8c;--aqua:#7ce8e5;
+  --cream:#fff8e8;--coral:#ff795f;--gold:#ffc857;--green:#267c69;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Trebuchet MS,Arial,sans-serif;color:var(--navy);
+ background:linear-gradient(180deg,#48c8dd 0%,#087fa7 43%,#064768 100%);min-height:100vh}
+.ocean{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;
+ background:radial-gradient(ellipse at 50% -15%,rgba(255,255,255,.65),transparent 48%),
+ linear-gradient(110deg,transparent 20%,rgba(255,255,255,.08) 21%,transparent 23%,transparent 58%,rgba(255,255,255,.08) 59%,transparent 62%)}
+.bubble{position:absolute;bottom:-60px;border:2px solid #ffffff80;border-radius:50%;background:#ffffff1b;animation:rise linear infinite}
+.b1{left:7%;width:20px;height:20px;animation-duration:12s}.b2{left:19%;width:10px;height:10px;animation-duration:9s;animation-delay:2s}
+.b3{left:76%;width:26px;height:26px;animation-duration:14s;animation-delay:1s}.b4{left:91%;width:13px;height:13px;animation-duration:11s;animation-delay:4s}
+@keyframes rise{to{transform:translateY(-115vh) translateX(22px);opacity:0}}
+.wrap{position:relative;z-index:1;max-width:960px;margin:auto;padding:18px}
+.hero{border:3px solid #ffe4a4;border-radius:28px;padding:22px 20px;text-align:center;
+ background:linear-gradient(145deg,#fffdf4ed,#e0fbffed);box-shadow:0 10px 0 #0649677a,0 18px 40px #00364a30}
+.market-tag{display:inline-block;background:#fff1cc;border:2px solid #e4a94d;border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:900;letter-spacing:1px}
+h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1;margin:12px 0 6px;color:#ff714f;text-shadow:2px 3px 0 #ffd76e}
+h1 span{display:block;color:#087d9d;font-size:.63em;margin-top:8px;text-shadow:none}
+.subtitle{font-weight:800;color:#27546c}
+.mascots{font-size:clamp(2.3rem,6vw,4rem);margin:8px 0;filter:drop-shadow(0 4px 1px #0b638b30)}
+.panel{margin-top:18px;background:#fffdf4f2;border:2px solid #b4f1ed;border-radius:24px;padding:22px;box-shadow:0 8px 0 #034c6c75,0 14px 30px #00364a20}
+h2{margin:0 0 12px;color:#087d91;font-size:clamp(1.35rem,3vw,1.8rem)}
+p{line-height:1.65}
+.lead{font-size:1.08rem}
+.btn{border:0;border-radius:14px;padding:13px 18px;margin:6px 5px 3px 0;font:700 1rem Trebuchet MS,Arial,sans-serif;cursor:pointer;transition:transform .15s,filter .15s;box-shadow:0 4px 0 #16465c30}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}.btn:focus-visible{outline:3px solid #083e5b;outline-offset:3px}
+.primary{background:linear-gradient(#ffda70,#ffad35);color:#603d08;border:2px solid #fff0bd}
+.secondary{background:linear-gradient(#28bfd0,#098aa8);color:white;border:2px solid #b8f8f4}
+.soft{background:#e5f8f8;color:#07566c;border:2px solid #b4e8e9}
+.hidden{display:none!important}
+.storybox{padding:18px;background:linear-gradient(135deg,#eafcff,#fff8e8);border-left:6px solid var(--gold);border-radius:15px;font-size:1.08rem;line-height:1.8}
+.status{font-weight:800;min-height:26px;color:#087d64}
+.voice-tools{background:#edf9fb;padding:12px;border-radius:14px;margin:12px 0}
+label{font-weight:800;font-size:.95rem}
+select,input[type=range]{max-width:100%;margin:5px 10px 5px 0}
+select{padding:9px;border:1px solid #91cdd4;border-radius:9px;background:white}
+.question-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.pill{background:#e3f7f5;border:1px solid #a8e3de;padding:7px 12px;border-radius:999px;font-weight:800}
+.track{height:12px;background:#d8eeee;border-radius:999px;overflow:hidden;margin:12px 0 18px}
+.trackfill{height:100%;width:0;background:linear-gradient(90deg,#27b5b5,#ffc857);transition:width .3s}
+.answers{display:grid;gap:10px}
+.answer{width:100%;text-align:left;border:2px solid #c5e7e8;background:#f0fbff;border-radius:14px;padding:14px;font:700 1rem Trebuchet MS,Arial,sans-serif;color:var(--navy);cursor:pointer}
+.answer:hover{background:#dff8ff}.answer.correct{background:#dff8df;border-color:#46a96b}.answer.wrong{background:#ffe4df;border-color:#ef806e}
+.feedback{font-weight:800;min-height:30px;margin:12px 0}
+.verse{background:linear-gradient(135deg,#e7fbff,#fff5d9);border:1px solid #b6e7e7;border-radius:14px;padding:13px 15px;margin:9px 0;font-size:1.08rem;font-weight:800;line-height:1.55}
+.actions{font-size:.95rem;color:#315b70}
+.badge{display:inline-block;padding:9px 13px;margin:4px;border-radius:999px;background:#fff0bb;border:1px solid #eac45c;font-weight:900}
+.footer{text-align:center;color:#eaffff;font-weight:700;padding:22px 8px 12px}
+@media(max-width:560px){.wrap{padding:10px}.hero,.panel{padding:17px}.btn{width:100%;margin:5px 0}.storybox{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ocean" aria-hidden="true"><span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span><span class="bubble b4"></span></div>
+<main class="wrap">
+<header class="hero">
+  <div class="market-tag">🐚 SEA MINI-MARKET 🐚</div>
+  <div class="mascots" aria-hidden="true">🦀 🔎 🐙 🤖 🐬</div>
+  <h1>DETERMINER DETECTIVES<span>THE SEA MINI-MARKET</span></h1>
+  <p class="subtitle">Year 3 Pluto · Determiners: <strong>a, an and any</strong></p>
+  <div class="market-tag">🌊 Learn with Miss Munirah 🌊</div>
+</header>
+
+<section class="panel" id="intro">
+  <h2>🚨 Oh no! The Sea Mini-Market is in trouble!</h2>
+  <p class="lead">The shopping labels are mixed up! Benny Bot needs your help. Can you become a Determiner Detective and save the underwater picnic?</p>
+  <p>🎯 <strong>Your mission:</strong> Listen to the story, solve three clues, then perform the detective chant!</p>
+  <button class="btn primary" onclick="startGame()">ACCEPT THE MISSION! ➜</button>
+</section>
+
+<section class="panel hidden" id="storyPanel">
+  <h2>🎧 Mission 1: The Mystery of the Missing Labels</h2>
+  <p>Find a quiet listening spot. Turn up your device volume, then press play. Listen carefully because every detail is a clue!</p>
+  <div class="storybox" id="storyText">One sunny day under the sea, Benny Bot was preparing for a school picnic. He placed apples, bananas, oranges, and pencils on the market shelves. Suddenly, a magical sea breeze blew all the labels away! Benny Bot looked worried. “Oh no! How can I prepare the picnic?” he cried. A friendly dolphin smiled and said, “Don't worry, Benny! The Determiner Detectives can help you!”</div>
+  <div class="voice-tools">
+    <label for="voiceSelect">Narrator voice: </label>
+    <select id="voiceSelect" aria-label="Choose narrator voice"><option value="">Default English voice</option></select><br>
+    <label for="rate">Speaking pace: <span id="rateVal">0.88×</span></label>
+    <input id="rate" type="range" min="0.72" max="1.08" step="0.04" value="0.88" oninput="document.getElementById('rateVal').textContent=this.value+'×'">
+    <p style="margin:4px 0;font-size:.88rem">Tip: Choose a warm English voice if available. Set your phone, tablet, or computer volume higher for louder playback.</p>
+  </div>
+  <button class="btn primary" onclick="readStory()">🔊 Play the Story</button>
+  <button class="btn secondary" onclick="stopAudio()">⏹ Stop</button>
+  <div class="status" id="audioStatus" aria-live="polite"></div>
+  <button class="btn soft" onclick="showQuestion(0)">I'M READY! LET'S INVESTIGATE ➜</button>
+</section>
+
+<section class="panel hidden" id="quizPanel">
+  <div class="question-top"><h2>🔍 Mission 2: Listening Detective Quiz</h2><span class="pill" id="qCount">Clue 1 of 3</span></div>
+  <div class="track"><div class="trackfill" id="progress"></div></div>
+  <h3 id="question"></h3>
+  <div class="answers" id="answers"></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <button class="btn primary hidden" id="next" onclick="nextQuestion()">NEXT CLUE ➜</button>
+</section>
+
+<section class="panel hidden" id="resultsPanel">
+  <div class="mascots" aria-hidden="true">🏆 🐙 ⭐</div>
+  <h2>🎉 Detective Results!</h2>
+  <p id="resultMessage"></p><h3 id="score"></h3><div id="badges"></div>
+  <p>Every good detective listens carefully and keeps practising. Let's celebrate with a chant!</p>
+  <button class="btn primary" onclick="showChant()">🎵 LEARN THE CHANT</button>
+  <button class="btn secondary" onclick="restart()">↻ PLAY AGAIN</button>
+</section>
+
+<section class="panel hidden" id="chantPanel">
+  <h2>🎵 Mission 3: The Determiner Detective Chant</h2>
+  <p>Listen first, then repeat each line with your classmates. Add the actions to make it fun!</p>
+  <div class="verse">🌊 Under the sea, come along with me!</div>
+  <div class="verse">🍎 A banana, an apple, what can you see?</div>
+  <div class="verse">✏️ Any pencils? Any oranges?</div>
+  <div class="verse">🔎 Let's solve the mystery with our English!</div>
+  <button class="btn primary" onclick="readChant()">🔊 Play the Chant</button>
+  <button class="btn secondary" onclick="stopAudio()">⏹ Stop</button>
+  <h3>🙌 Add the actions!</h3>
+  <p class="actions">🌊 <strong>“Under the sea”</strong> — wave your hands like the ocean.<br>
+  🍌 <strong>“A banana”</strong> — pretend to hold a banana.<br>
+  🍎 <strong>“An apple”</strong> — pretend to take a bite.<br>
+  ✏️ <strong>“Any pencils?”</strong> — pretend to write.<br>
+  🔎 <strong>“Solve the mystery”</strong> — make binoculars with your hands.</p>
+  <button class="btn primary" onclick="finish()">🏆 FINISH MY MISSION!</button>
+</section>
+
+<section class="panel hidden" id="finalPanel">
+  <div class="mascots" aria-hidden="true">🐬 🎉 🦀</div>
+  <h2>MISSION COMPLETE!</h2>
+  <p>Congratulations, Determiner Detective! You helped Benny Bot solve the mystery and saved the Sea Mini-Market picnic!</p>
+  <div class="badge">🏅 Listening Detective</div><div class="badge">⭐ Grammar Explorer</div><div class="badge">🎵 Chant Champion</div>
+  <p><strong>Keep listening, learning and exploring!</strong></p>
+  <button class="btn primary" onclick="restart()">PLAY AGAIN ↻</button>
+</section>
+<footer class="footer">🐚 Dive into English with Miss Munirah! 🐚</footer>
+</main>
+
+<script>
+const storyParts = [
+"One sunny day under the sea, Benny Bot was preparing for a school picnic.",
+"He placed apples, bananas, oranges, and pencils on the market shelves.",
+"Suddenly, a magical sea breeze blew all the labels away!",
+"Benny Bot looked worried. “Oh no! How can I prepare the picnic?” he cried.",
+"A friendly dolphin smiled and said, “Don't worry, Benny! The Determiner Detectives can help you!”"
+];
+const questions=[
+ {q:"Clue 1: What was Benny Bot preparing?",a:["A. A birthday party","B. A school picnic","C. A swimming competition"],c:1,ok:"That's right! Benny Bot was preparing a school picnic! 🧺",retry:"Listen for what Benny Bot was getting ready for."},
+ {q:"Clue 2: What happened to the labels?",a:["A. They disappeared into the sea.","B. They were mixed up by the magical sea breeze.","C. They were eaten by a shark."],c:1,ok:"Correct! The magical sea breeze mixed up the labels! 🌬️",retry:"Think about what the magical sea breeze did."},
+ {q:"Clue 3: Who will help Benny Bot?",a:["A. The Determiner Detectives","B. The pirates","C. The sea monsters"],c:0,ok:"Excellent! The Determiner Detectives will help Benny Bot! 🔎",retry:"Who did the friendly dolphin say could help Benny Bot?"}
+];
+let qi=0,score=0,locked=false,chosenVoice=null;
+const panels=["intro","storyPanel","quizPanel","resultsPanel","chantPanel","finalPanel"];
+function showOnly(id){panels.forEach(p=>document.getElementById(p).classList.toggle("hidden",p!==id));window.scrollTo({top:0,behavior:"smooth"});}
+function startGame(){stopAudio();showOnly("storyPanel");}
+function loadVoices(){
+ if(!("speechSynthesis" in window))return;
+ const voices=speechSynthesis.getVoices();
+ const sel=document.getElementById("voiceSelect"); const old=sel.value;
+ sel.innerHTML='<option value="">Default English voice</option>';
+ voices.filter(v=>/^en(-|_)/i.test(v.lang)).forEach((v,i)=>{
+   const op=document.createElement("option");op.value=v.name;op.textContent=v.name+" ("+v.lang+")";sel.appendChild(op);
+ });
+ if(old)sel.value=old;
+}
+if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function speakLines(lines,doneText){
+ if(!("speechSynthesis" in window)){document.getElementById("audioStatus").textContent="Audio playback is not available in this browser. Your teacher can read the story aloud.";return;}
+ stopAudio();
+ const status=document.getElementById("audioStatus"); if(status)status.textContent="🔊 Narration playing…";
+ const voiceName=document.getElementById("voiceSelect")?.value||"";
+ chosenVoice=speechSynthesis.getVoices().find(v=>v.name===voiceName)||null;
+ const rate=parseFloat(document.getElementById("rate")?.value||"0.88");
+ lines.forEach((line,i)=>{
+  const u=new SpeechSynthesisUtterance(line);
+  u.lang=chosenVoice?.lang||"en-GB"; if(chosenVoice)u.voice=chosenVoice;
+  u.rate=rate;u.pitch=(i===2?1.12:1.02);u.volume=1;
+  if(i===0)u.onstart=()=>{if(status)status.textContent="🔊 Listen carefully for the clues…";};
+  if(i===lines.length-1)u.onend=()=>{if(status)status.textContent=doneText;};
+  speechSynthesis.speak(u);
+ });
+}
+function readStory(){speakLines(storyParts,"✅ Story finished! You can listen again or start the quiz.");}
+function readChant(){
+ const chant=["Under the sea, come along with me!","A banana, an apple, what can you see?","Any pencils? Any oranges?","Let's solve the mystery with our English!"];
+ speakLines(chant,"🎵 Great chanting, detectives! Try it once more with the actions.");
+}
+function stopAudio(){if("speechSynthesis"in window)speechSynthesis.cancel();const s=document.getElementById("audioStatus");if(s)s.textContent="Audio stopped.";}
+function showQuestion(n){
+ stopAudio();qi=n;locked=false;showOnly("quizPanel");const q=questions[n];
+ document.getElementById("qCount").textContent=`Clue ${n+1} of ${questions.length}`;
+ document.getElementById("progress").style.width=(n/questions.length*100)+"%";
+ document.getElementById("question").textContent=q.q;
+ document.getElementById("feedback").textContent="";
+ document.getElementById("next").classList.add("hidden");
+ const box=document.getElementById("answers");box.innerHTML="";
+ q.a.forEach((txt,i)=>{const b=document.createElement("button");b.className="answer";b.textContent=txt;b.onclick=()=>answer(i,b);box.appendChild(b);});
+}
+function answer(n,button){
+ if(locked)return;locked=true;const q=questions[qi];
+ [...document.querySelectorAll(".answer")].forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correct");});
+ if(n===q.c){score++;document.getElementById("feedback").textContent="🌟 "+q.ok;}
+ else{button.classList.add("wrong");document.getElementById("feedback").textContent="💙 Not quite. "+q.retry+" "+q.ok;}
+ document.getElementById("progress").style.width=((qi+1)/questions.length*100)+"%";
+ const next=document.getElementById("next");next.textContent=qi===questions.length-1?"SEE MY RESULTS 🏆":"NEXT CLUE ➜";next.classList.remove("hidden");
+}
+function nextQuestion(){if(!locked)return;if(qi<questions.length-1)showQuestion(qi+1);else results();}
+function results(){
+ stopAudio();showOnly("resultsPanel");document.getElementById("score").textContent=`Your score: ${score} / ${questions.length}`;
+ document.getElementById("resultMessage").textContent=score===3?"Amazing! You solved every listening clue!":score===2?"Great effort! You're becoming a brilliant detective.":"Good try! Listen again and keep practising—you can do it!";
+ const b=document.getElementById("badges");b.innerHTML="";
+ if(score>=1)b.innerHTML+='<span class="badge">⭐ Listening Star</span>';
+ if(score>=2)b.innerHTML+='<span class="badge">🔎 Super Detective</span>';
+ if(score===3)b.innerHTML+='<span class="badge">🏆 Mystery Master</span>';
+}
+function showChant(){stopAudio();showOnly("chantPanel");}
+function finish(){stopAudio();showOnly("finalPanel");}
+function restart(){stopAudio();qi=0;score=0;locked=false;showOnly("intro");}
+</script>
+</body>
+</html>
